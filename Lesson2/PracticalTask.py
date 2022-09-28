@@ -4,13 +4,13 @@
 # 0.67 -> 13
 # 198.45 -> 27
 
-# n = float(input('ведите число: '))
-# n = n * 10 ** (len(str(n))-2)
-# sum = 0
-# while n > 0:
-#     sum += n % 10
-#     n = int(n/10)
-# else: print(f'Сумма цифр в числе равна: {int(sum)}')
+n = float(input('ведите число: '))
+n = n * 10 ** (len(str(n))-2)
+sum = 0
+while n > 0:
+    sum += n % 10
+    n = n//10
+else: print(f'Сумма цифр в числе равна: {int(sum)}')
 
 
 # 2. Напишите программу, которая принимает на вход число N и выдает набор произведений чисел от 1 до N.
@@ -70,20 +70,20 @@
 # > [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 # > [0, 7, 6, 3, 4, 2, 9, 5, 1, 8]
 
-from random import randint
+# from random import randint
 
-numbers = []
-n = int(input('Введите длину списка: '))
+# numbers = []
+# n = int(input('Введите длину списка: '))
 
-for i in range(n):
-    numbers.append(i)
-print(numbers)
+# for i in range(n):
+#     numbers.append(i)
+# print(numbers)
 
-while i < n:
-    numbers[i] = randint(0, n-1)
-    j = 0 
-    for j in range(i):
-        if numbers[i] == numbers[j]:
-            i -= 1
-    i += 1
-print(numbers)
+# while i < n:
+#     numbers[i] = randint(0, n-1)
+#     j = 0 
+#     for j in range(i):
+#         if numbers[i] == numbers[j]:
+#             i -= 1
+#     i += 1
+# print(numbers)
