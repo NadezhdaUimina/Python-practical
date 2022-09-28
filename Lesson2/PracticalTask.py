@@ -50,15 +50,40 @@
 # > [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
 # > 15
 
-n = int(input('Введите количество элементов: '))
-pos1 = int(input('Введите позицию первого элемента: '))
-pos2 = int(input('Введите позицию второго элемента: '))
+# n = int(input('Введите количество элементов: '))
+# pos1 = int(input('Введите позицию первого элемента: '))
+# pos2 = int(input('Введите позицию второго элемента: '))
+# numbers = []
+
+# if pos1 < 2*n and pos2< 2*n:
+#     for i in range(2*n+1):
+#         numbers.append(-n + i)
+
+#     print(numbers)
+#     print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {numbers[pos1-1] * numbers[pos2-1]}')
+# else: print('Элементов с данными позициями не существует')
+
+
+
+# 5. ** Реализуйте алгоритм перемешивания списка. Без функции shuffle из модуля random.
+# 10
+# > [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# > [0, 7, 6, 3, 4, 2, 9, 5, 1, 8]
+
+from random import randint
+
 numbers = []
+n = int(input('Введите длину списка: '))
 
-if pos1 < 2*n and pos2< 2*n:
-    for i in range(2*n+1):
-        numbers.append(-n + i)
+for i in range(n):
+    numbers.append(i)
+print(numbers)
 
-    print(numbers)
-    print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {numbers[pos1-1] * numbers[pos2-1]}')
-else: print('Элементов с данными позициями не существует')
+while i < n:
+    numbers[i] = randint(0, n-1)
+    j = 0 
+    for j in range(i):
+        if numbers[i] == numbers[j]:
+            i -= 1
+    i += 1
+print(numbers)
