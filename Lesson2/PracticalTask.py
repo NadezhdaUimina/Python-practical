@@ -18,11 +18,26 @@
 # 4 -> [1, 2, 6, 24]
 # 6 -> [1, 2, 6, 24, 120, 720]
 
-n = int(input('введите целое положительное число: '))
-factorial = 1
-if n == 0:
-    print(factorial)
-elif n > 0:
-    for i in range(n):
-        factorial *= i+1
-        print(factorial, end=(' '))
+# n = int(input('введите целое положительное число: '))
+# factorial = 1
+# if n == 0:
+#     print(factorial)
+# elif n > 0:
+#     for i in range(n):
+#         factorial *= i+1
+#         print(factorial, end=(' '))
+
+
+# 3. Задайте список из n чисел, заполненный по формуле (1 + 1/n) ** n и выведите на экран их сумму.
+# Для n = 6: [2, 2, 2, 2, 2, 3] -> 13
+
+numbers = []
+sum = 0
+n = int(input('Введите количество элементов списка: '))
+for i in range(1, n+1):
+    numbers.append(round((1 + 1/i)**i))
+    sum += round((1 + 1/i)**i)
+print(numbers)
+print(f'Сумма элементов списка равна: {sum}')
+
+
