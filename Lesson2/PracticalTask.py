@@ -56,10 +56,7 @@ numbers = []
 
 for i in range(2*n+1):
     numbers.append(-n + i)
-    if pos1 -1 == i:
-        num1 = -n + i
-    elif pos2 - 1 == i:
-        num2 = -n + i
 
 print(numbers)
-print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {num1 * num2}')
+print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {numbers[pos1-1] * numbers[pos2-1]}')
+
