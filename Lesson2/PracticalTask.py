@@ -31,14 +31,15 @@
 # 3. Задайте список из n чисел, заполненный по формуле (1 + 1/n) ** n и выведите на экран их сумму.
 # Для n = 6: [2, 2, 2, 2, 2, 3] -> 13
 
-# numbers = []
-# sum = 0
-# n = int(input('Введите количество элементов списка: '))
-# for i in range(1, n+1):
-#     numbers.append(round((1 + 1/i)**i))
-#     sum += round((1 + 1/i)**i)
-# print(numbers)
-# print(f'Сумма элементов списка равна: {sum}')
+numbers = []
+sum = 0
+n = int(input('Введите количество элементов списка: '))
+for i in range(1, n+1):
+    num = round((1 + 1/i)**i)
+    numbers.append(num)
+    sum += num
+print(numbers)
+print(f'Сумма элементов списка равна: {sum}')
 
 
 # * 4. Напишите программу, которая принимает на вход 2 числа. Задайте список из N элементов, 
@@ -49,14 +50,14 @@
 # > [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
 # > 15
 
-n = int(input('Введите количество элементов: '))
-pos1 = int(input('Введите позицию первого элемента: '))
-pos2 = int(input('Введите позицию второго элемента: '))
-numbers = []
+# n = int(input('Введите количество элементов: '))
+# pos1 = int(input('Введите позицию первого элемента: '))
+# pos2 = int(input('Введите позицию второго элемента: '))
+# numbers = []
 
-for i in range(2*n+1):
-    numbers.append(-n + i)
+# for i in range(2*n+1):
+#     numbers.append(-n + i)
 
-print(numbers)
-print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {numbers[pos1-1] * numbers[pos2-1]}')
+# print(numbers)
+# print(f'Провезведение элементов на позициях {pos1} и {pos2} равно: {numbers[pos1-1] * numbers[pos2-1]}')
 
