@@ -71,18 +71,54 @@
 # out             out
 # 1011000         1011
 
-def number_conversion (num):   # преобразование десятичного числа в двоичное
-    list = []
-    while num > 0:
-        list.insert(0, num % 2)
-        num //= 2
+# def number_conversion (num):   # преобразование десятичного числа в двоичное
+#     list = []
+#     while num > 0:
+#         list.insert(0, num % 2)
+#         num //= 2
 
-    result = 0
-    len_list = len(list)
-    for i in range(len_list):
-        result += list[len_list-1-i] * 10**i
-        
-    return result
+#     result = 0
+#     len_list = len(list)
+#     for i in range(len_list):
+#         result += list[len_list-1-i] * 10**i
 
-result = number_conversion(int(input('Введите число: ')))
-print(result)
+#     return result
+
+# result = number_conversion(int(input('Введите число: ')))
+# print(result)
+
+
+
+# 4.* Задайте список из произвольных вещественных чисел, количество задаёт пользователь.
+# Напишите программу, которая найдёт разницу между максимальным и минимальным значением дробной части элементов.
+# in
+# 5
+# out
+# [5.16, 8.62, 6.57, 7.92, 9.22]
+# Min: 0.16, Max: 0.92. Difference: 0.76
+
+from random import uniform
+
+def new_list (num): #  создание списка
+    if num < 0:
+        return "Ошибка, введите положительное число"
+    list = [] 
+    for i in range(num):
+        list.append(round(uniform(0, 10), 2))
+    return list
+
+def difference_max_min (list):
+    min = 10
+    max = 0
+    for i in range(0, len(list)):
+        if list[i] % 1 < min:
+            min = list[i] % 1
+        elif list[i] % 1 > max:
+            max = list[i] % 1
+    print('маx значение дробной части', round(max, 2))
+    print('мin значение дробной части', round(min, 2))
+    print('разница между мах и мin значением дробной части:', round(max - min, 2))
+
+list = new_list(int(input('Введите длину спискa: ')))
+print(list)  
+difference_max_min(list)
