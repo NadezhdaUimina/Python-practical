@@ -97,28 +97,55 @@
 # [5.16, 8.62, 6.57, 7.92, 9.22]
 # Min: 0.16, Max: 0.92. Difference: 0.76
 
-from random import uniform
+# from random import uniform
+
+# def new_list (num): #  создание списка
+#     if num < 0:
+#         return "Ошибка, введите положительное число"
+#     list = [] 
+#     for i in range(num):
+#         list.append(round(uniform(0, 10), 2))
+#     return list
+
+# def difference_max_min (list):
+#     min = 10
+#     max = 0
+#     for i in range(0, len(list)):
+#         if list[i] % 1 < min:
+#             min = list[i] % 1
+#         elif list[i] % 1 > max:
+#             max = list[i] % 1
+#     print('маx значение дробной части', round(max, 2))
+#     print('мin значение дробной части', round(min, 2))
+#     print('разница между мах и мin значением дробной части:', round(max - min, 2))
+
+# list = new_list(int(input('Введите длину спискa: ')))
+# print(list)  
+# difference_max_min(list)
+
+
+
+
+# 5. ** Задайте число. Составьте список чисел Фибоначчи, в том числе для отрицательных индексов.
+# Негафибоначчи
+# Пример:
+# in
+# 8
+# out
+# -21 13 -8 5 -3 2 -1 1 0 1 1 2 3 5 8 13 21
 
 def new_list (num): #  создание списка
-    if num < 0:
-        return "Ошибка, введите положительное число"
     list = [] 
-    for i in range(num):
-        list.append(round(uniform(0, 10), 2))
-    return list
+    
+    if num > 0:
+        fib1, fib2 = 1, 1
+        for i in range(0, num):
+            list.append(fib1)
+            fib1, fib2 = fib2, fib1 + fib2
+        fib1, fib2 = 0, 1
+        for i in range(0, num+1):
+            list.insert(0, fib1)
+            fib1, fib2 = fib2, fib1 - fib2
+        return list
 
-def difference_max_min (list):
-    min = 10
-    max = 0
-    for i in range(0, len(list)):
-        if list[i] % 1 < min:
-            min = list[i] % 1
-        elif list[i] % 1 > max:
-            max = list[i] % 1
-    print('маx значение дробной части', round(max, 2))
-    print('мin значение дробной части', round(min, 2))
-    print('разница между мах и мin значением дробной части:', round(max - min, 2))
-
-list = new_list(int(input('Введите длину спискa: ')))
-print(list)  
-difference_max_min(list)
+print(new_list(int(input('Введите длину спискa Негафибоначчи: '))))
