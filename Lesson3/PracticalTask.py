@@ -136,16 +136,14 @@
 
 def new_list (num): #  создание списка
     list = [] 
-    
-    if num > 0:
-        fib1, fib2 = 1, 1
-        for i in range(0, num):
-            list.append(fib1)
-            fib1, fib2 = fib2, fib1 + fib2
-        fib1, fib2 = 0, 1
-        for i in range(0, num+1):
-            list.insert(0, fib1)
-            fib1, fib2 = fib2, fib1 - fib2
-        return list
+    fib1, fib2 = 1, 1
+    for i in range(0, num):
+        list.append(fib1)
+        fib1, fib2 = fib2, fib1 + fib2
+    fib1, fib2 = 0, 1
+    for i in range(0, num+1):
+        list.insert(0, fib1)
+        fib1, fib2 = fib2, fib1 - fib2
+    return list
 
 print(new_list(int(input('Введите длину спискa Негафибоначчи: '))))
