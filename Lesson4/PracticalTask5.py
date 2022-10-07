@@ -13,3 +13,20 @@
 # out
 # The contents of the files do not match!
 
+
+from random import randint
+from secrets import choice
+
+def creating_a_file (num): # создание файла с многочленом
+    if num <= 0:
+        return print('Ошибка, введите положительное число больше ноля')
+    with open('file_2.txt', 'a', encoding='utf-8') as my_file:
+        while num > 0:
+            num_ran =randint(0, 10)
+            if num_ran != 0:
+                my_file.write(f'{num_ran}*x^{num} {choice("+-")} ')
+            num -= 1
+        else: my_file.write(f'{randint(0, 10)} = 0\n')  
+    
+for i in range(3):
+    creating_a_file(int(input('Введите степень многочлена: ')))
