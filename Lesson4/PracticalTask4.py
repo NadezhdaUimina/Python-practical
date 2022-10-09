@@ -25,7 +25,7 @@ from secrets import choice
 def creating_a_file (num): # создание файла с многочленом
     if num <= 0:
         return print('Ошибка, введите положительное число больше ноля')
-    with open('file.txt', 'a', encoding='utf-8') as my_file:
+    with open('Lesson4/file.txt', 'a', encoding='utf-8') as my_file:
         while num > 0:
             num_ran =randint(0, 10)
             if num_ran != 0:

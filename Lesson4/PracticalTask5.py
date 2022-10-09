@@ -28,5 +28,19 @@ def creating_a_file (num): # создание файла с многочлено
             num -= 1
         else: my_file.write(f'{randint(0, 10)} = 0\n')  
     
-for i in range(3):
-    creating_a_file(int(input('Введите степень многочлена: ')))
+def file_sum (file_1: str, file_2: str):
+    with open(file_1, 'r', encoding='utf-8') as my_file_1, open(file_2, 'r', encoding='utf-8') as my_file_2:
+        text_1 = my_file_1.readlines()
+        text_2 = my_file_2.readlines()
+        
+        if len(text_1) == len(text_2):
+            with open("new_file.txt", "a", encoding="utf-8") as my_file_3:
+                for i in range(len(text_1)):
+                    result = text_1[i].split('=')
+                    my_file_3.write(f"{result} + {text_2[i]}")
+        else: print('Содержимое файлов не совпадает!')
+
+
+# for i in range(3):
+#     creating_a_file(int(input('Введите степень многочлена: ')))
+file_sum("file.txt", "file_2.txt")
