@@ -36,10 +36,9 @@ def file_sum (file_1: str, file_2: str):
         if len(text_1) == len(text_2):
             with open("Lesson4/new_file.txt", "a", encoding="utf-8") as my_file_3:
                 for i in range(len(text_1)):
-                    result = text_1[i].split('=')
+                    result = "".join(text_1[i].strip().split('=')[0])
                     my_file_3.write(f"{result} + {text_2[i]}")
         else: print('Содержимое файлов не совпадает!')
-
 
 for i in range(3):
     creating_a_file(int(input('Введите степень многочлена: ')))
