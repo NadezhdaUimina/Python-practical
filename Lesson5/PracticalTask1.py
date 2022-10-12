@@ -28,13 +28,8 @@ def list_new (n, word):  #создание списка слов
     return new_list
 
 def list_edit (text):  # Скорректированный техт не содержащий "абв"
-    new_text = []
-    i = 0
-    while i < len(text):
-        if not(text[i] == 'а' and text[i+1] == 'б' and text[i+2] == 'в'):
-            new_text.append(''.join(text[i] + text[i+1] + text[i+2]))
-        i += 4
-    return new_text        
+    
+    return (i for i in text.split() if i  != "абв" )   
                 
 
 
