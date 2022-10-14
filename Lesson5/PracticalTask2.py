@@ -25,36 +25,33 @@ from itertools import groupby, starmap
 from os import path
 
 
-def encoding (f_encoding: str):
-    with open(f_encoding, 'r', encoding='utf-8') as my_f_encoding:
-            # open(f_decoding, 'r', decoding='utf-8') as my_f_decoding:
-        os.path.exists
-        text_encoding =  my_f_encoding.writelines()
-        cout = 1
-        for i, v in enumerate(text_encoding):
-            for i in range(v):
-                if i <= v:
-                    if text_encoding[i] == text_encoding[i + 1]:
-                        cout += 1
-                    else:
-                        print(cout, text_encoding[i])
-                        cout = 1
-    
+def encoding (f_text: str, f_text_code: str):   # кодирование
+    if path.exists(f_text) and not path.exists(f_text_code):
+        with open(f_text, 'r') as my_text, \
+            open(f_text_code, 'w') as my_text_code:
+            text = my_text.readlines()
+            for i, v in enumerate(text):
+                my_text_code.write(''.join([f'{len(list(g))}{k}' for k, g in groupby(v)]))
+    else: print("Ошибка, проверьте имя файлов!")
 
 
+def decoding (f_text_code: str):
+    if path.exists(f_text_code):
+        with open(f_text_code) as my_text_code:
+            num = ""
+            for i in my_text_code:
+                decoding = []
+                for j in i:
+                    if j.isdigit():
+                        num += j
+                else:
+                    decoding.append([int(num), j])
+                    num = ""
+                print("".join(starmap(lambda x, y: x * y, decoding)))
+    else:
+        print("Ошибка, проверьте имя файла!")
 
 
-# decoding
-encoding('Lesson/text_words.txt')
-
-# encoding(input('Введите имя файла с текстом: '))
-# 'text_words.txt '
-# int(input('Введите имя файла для записи: ;')
-# # 'text_code_words.txt '
-# int(input('Введите имя файла для декодирования: ')
-# 'text_code_words.txt '
-
-# Мария Андреева: from itertools import groupby, starmap
-# Мария Андреева: from os import path
-# Мария Андреева: exists
+encoding(input('Введите имя файла с текстом: ;'), input('Введите имя файла для записи: ')
+decoding(input('Введите имя файла для декодирования: ')
 
