@@ -25,14 +25,14 @@ from itertools import groupby, starmap
 from os import path
 
 
-def encoding (f_text: str, f_text_code: str):   # кодирование
-    if path.exists(f_text) and not path.exists(f_text_code):
-        with open(f_text, 'r') as my_text, \
-            open(f_text_code, 'w') as my_text_code:
-            text = my_text.readlines()
-            for i, v in enumerate(text):
-                my_text_code.write(''.join([f'{len(list(g))}{k}' for k, g in groupby(v)]))
-    else: print("Ошибка, проверьте имя файлов!")
+# def encoding (f_text: str, f_text_code: str):   # кодирование
+#     if path.exists(f_text) and not path.exists(f_text_code):
+#         with open(f_text, 'r') as my_text, \
+#             open(f_text_code, 'w') as my_text_code:
+#             text = my_text.readlines()
+#             for i, v in enumerate(text):
+#                 my_text_code.write(''.join([f'{len(list(g))}{k}' for k, g in groupby(v)]))
+#     else: print("Ошибка, проверьте имя файлов!")
 
 
 def decoding (f_text_code: str):
@@ -41,17 +41,17 @@ def decoding (f_text_code: str):
             num = ""
             for i in my_text_code:
                 decoding = []
-                for j in i:
+                for j in i.strip():
                     if j.isdigit():
                         num += j
-                else:
-                    decoding.append([int(num), j])
-                    num = ""
+                    else:
+                        decoding.append([int(num), j])
+                        num = ""
                 print("".join(starmap(lambda x, y: x * y, decoding)))
     else:
         print("Ошибка, проверьте имя файла!")
 
 
-encoding(input('Введите имя файла с текстом: ;'), input('Введите имя файла для записи: '))
+# encoding(input('Введите имя файла с текстом: ;'), input('Введите имя файла для записи: '))
 decoding(input('Введите имя файла для декодирования: '))
 
