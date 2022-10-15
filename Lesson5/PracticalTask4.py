@@ -11,10 +11,9 @@ from random import randint
 
 def input_dat(name):   #ход игрока
     quantity = int(input(f"{name}, введите количество конфет, которое возьмете от 1 до 28: "))
-    while 0 < quantity < 29:
-        if quantity < 1 or quantity > 28:
-
-            quantity = int(input(f"{name}, введите корректное количество конфет: "))
+    
+    if quantity < 1 or quantity > 28:
+        quantity = int(input(f"{name}, введите корректное количество конфет: "))
     return quantity
     
 def print_inf(name, quantity, candies):  #информация о ходе
@@ -25,7 +24,7 @@ print('Правила игры: На столе лежит 2021 конфета. 
  Первый ход определяется жеребьёвкой. За один ход можно забрать не более чем 28 конфет.\
  Все конфеты оппонента достаются сделавшему последний ход.')
 
-candies = 100
+candies = 2021
 num_player = int((input('Выберети 1 - игра с компьютером, 2 - игра два игрока: ')))
 one_motion = randint(0,2)  #очередность
 
