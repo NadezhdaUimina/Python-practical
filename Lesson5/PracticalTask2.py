@@ -35,7 +35,22 @@ from os import path
 #     else: print("Ошибка, проверьте имя файлов!")
 
 
-def decoding (f_text_code: str):
+# def decoding (f_text_code: str):
+    # if path.exists(f_text_code):
+    #     with open(f_text_code) as my_text_code:
+    #         num = ""
+    #         for i in my_text_code:
+    #             decoding = []
+    #             for j in i.strip():
+    #                 if j.isdigit():
+    #                     num += j
+    #                 else:
+    #                     decoding.append([int(num), j])
+    #                     num = ""
+    #             print("".join(starmap(lambda x, y: x * y, decoding)))
+    # else:
+    #     print("Ошибка, проверьте имя файла!")
+def decoding(f_text_code: str):
     if path.exists(f_text_code):
         with open(f_text_code) as my_text_code:
             num = ""
@@ -50,7 +65,6 @@ def decoding (f_text_code: str):
                 print("".join(starmap(lambda x, y: x * y, decoding)))
     else:
         print("Ошибка, проверьте имя файла!")
-
 
 # encoding(input('Введите имя файла с текстом: ;'), input('Введите имя файла для записи: '))
 decoding(input('Введите имя файла для декодирования: '))

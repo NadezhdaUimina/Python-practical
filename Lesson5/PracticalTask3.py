@@ -18,7 +18,7 @@ def move_position(field, motion):
         return field
     else:
         print('Неправильный ввод или поле занято, вы уверены что ввели правильный номер?')
-        return 0
+        return False
 
 def check (res): #проверка на выйгрыш
     win_pos = ((0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6))
@@ -39,7 +39,7 @@ beginning(field)
 motion = 1
 while motion <= 9:
      
-    if move_position(field, motion) == 0:
+    if move_position(field, motion) == False:
         motion -= 1
     else: 
         beginning(field)
