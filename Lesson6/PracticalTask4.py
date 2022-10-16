@@ -14,20 +14,20 @@ def dictionary(*list):
 
     for surname in list:
         key_1 = surname.split()[1][0]
-        if not key_1 in result: 
-            result[key_1] = []
+        result[key_1] = []
+        if  key_1 in result: 
+            result[key_1].append(surname)
             
-        result[key_1].append(surname)
         
+           
         
+        # for key_1, name in result:
+        #     key_2 = name.split()[0]
+        #     if not key_2 in result:
+        #         result[key_2] = []
+        #     result[key_2].append(name)
         
-    #     for key_1, name in result:
-    #         key_2 = name.split()[0]
-    #         if not key_2 in result:
-    #             result[key_2] = []
-    #         result[key_2].append(name)
-        
-    # return result
+    return result
 
 print(dictionary("Иван Сергеев", "Инна Серова", "Петр Алексеев", "Илья Иванов", "Анна Савельева", "Юнона Ветрякова",
     "Борис Аркадьев", "Антон Серов", "Павел Анисимов"))
