@@ -15,7 +15,7 @@ def dictionary(*list):
     for num in list:
         result.setdefault(num.split()[1][0], {}).setdefault(num.split()[0][0], []).append(num)
     return result
-fsaffa
+
 
 print(dictionary("Иван Сергеев", "Инна Серова", "Петр Алексеев", "Илья Иванов", "Анна Савельева", "Юнона Ветрякова",
     "Борис Аркадьев", "Антон Серов", "Павел Анисимов"))
