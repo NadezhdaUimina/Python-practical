@@ -8,10 +8,7 @@
 def dictionary(*list):
     result = {}
     for name in list:
-        key = name[0]
-        if not key in result:
-            result[key] = []
-        result[key].append(name)
+        result.setdefault(name[0], []).append(name)
     return result
 
 print(dictionary("Иван", "Мария", "Петр", "Илья", "Марина", "Петр", "Алина", "Бибочка"))
