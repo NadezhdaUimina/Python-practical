@@ -1,32 +1,32 @@
-def menu(): # меню
-    print('Команды для работы с телефонным справочником:\n'
-        '1 - Вывести данные из файла в консоль\n'
-        '2 - Добавить данные в телефонный справочник\n'
-        '3 - Поиск контакта по фамилии\n')
-    team = int(input('Введите команду: '))
-    if team < 1 or team > 3: team = int(input('Неверно введены данные, введите команду: '))
-    if team == 1:
-        print('Вывести данные в консоль из:\n'
-        '1 - Выести данные из Phone_book.csv\n'
-        '2 - Выести данные из Phone_book.txt\n')
-        print_file = int(input('Введите команду: '))
-        if print_file < 1 or print_file > 2: team = int(input('Неверно введены данные, введите команду: '))
-        return 'print_csv' if print_file == 1 else 'print_txt'
-    elif team == 2:
-        print('Добавить данные в существующий телефонный справочник\n'
-        '1 - Phone_book.csv\n'
-        '2 - Phone_book.txt\n')
-        record_file = int(input('Введите команду: '))
-        if record_file < 1 or record_file > 2: team = int(input('Неверно введены данные, введите команду: '))
-        return 'record_csv' if record_file == 1 else 'record_txt'
-    elif team == 3:
-        return 'search'
+from menu import menu  
+from print_file import print_csv, print_txt
+from print_file import print_all
+from writing_file import writing_csv, writing_txt
+from search import search
+import logg
 
 
+def tel_guide ():
+    m = menu()
 
+ 
+    if m == 'print_csv': 
+        print_csv()
+        logg.l_p_csv('Вывод данных из Phone_book.csv в консоль')
+    elif m == 'print_txt': 
+        print_txt()
+        logg.l_p_txt('Вывод данных из Phone_book.txt в консоль')
+    elif m == 'print_all':
+        print_all()
+        logg.l_p_txt('Запись данных из всех файлов в файл Phonebook_all.csv')
 
+    if m == 'record_csv':
+        writing_csv()
+        logg.l_w_csv('Запись данных в фаил, Lesson7/Phone_book.csv')
+    elif m == 'record_txt': 
+        writing_txt()
+        logg.l_w_txt('Запись данных в фаил, Lesson7/Phone_book.txt')
 
-# Иван Сергеев", "Инна Серова", "Петр Алексеев",
-# "Илья Иванов", "Анна Савельева", "Юнона Ветрякова",
-# "Борис Аркадьев", "Антон Серов", "Павел Анисимов"
-
+    if m == 'search':
+        search()
+        logg.l_s_txt('Поиск контакта')
