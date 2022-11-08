@@ -1,28 +1,16 @@
 from random import randint
 import telebot
 import emoji
-import functions_game
+import functions
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton, Update, ReplyKeyboardRemove
 from info import TOKEN
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 
 
-GAME = range(1)
+
+GAME_X, GAME_O = range(2)
 field = [1, 2, 3, 4, 5, 6, 7, 8, 9]  # создание списка
-symbol_1 = ""
-symbol_2 = ""
 
-
-# сoздание игрового поля
-def field_play(update, field, _):  # игровое поле
-
-    return f'-----------------\n' \
-           f'  {field[0]}     {field[1]}     {field[2]}\n' \
-           '-----------------\n' \
-           f'  {field[3]}     {field[4]}     {field[5]}\n' \
-           '-----------------\n' \
-           f'  {field[6]}     {field[7]}     {field[8]}\n'
 
 
 # Обрабатываем команду /start если пользователь отменил разговор
@@ -32,79 +20,64 @@ def start(update, _):  # Старт
                                             'Тебя привествует игра\n:cross_mark: крестики-нолики :hollow_red_circle:.\n\n'
                                             'Правила игры: Игроки по очереди ставят на свободные клетки поля 3×3 знаки '
                                             '(один всегда крестики, другой всегда нолики). Первый, выстроивший в ряд 3 своих фигуры по вертикали, '
-                                            'горизонтали или диагонали, выигрывает. Первый ход определяется жеребьевкой.\n\n'
-                                            'Давай сыграем!'))
-    update.message.reply_text(field_play(update, field, _))
-    return GAME
+                                            'горизонтали или диагонали, выигрывает. \n\n'
+                                            'Давай сыграем! Чтобы начать игру введите: /start_game.\n'
+                                            'Для выхода наберите "cancel"'))
+    
+    
+    
+    return GAME_X
+
 
 
 # основная часть
-def game(update, _):
-    global field, symbol_1, symbol_2
+def game_x(update, _):
+    global field
     user = update.message.from_user
 
-    # определение первого хода жеребьевкой
-    if functions_game.one_motion() == 'bot':  # если по жеребьевке первый ходит бот
-        symbol_1 = chr(10060)  # присвоение символа x
-        symbol_2 = chr(11093)  # присвоение символа o
-        update.message.reply_text(emoji.emojize('Первый ход :cross_mark: делает Бот'))
-        motion = functions_game.bot_motion(field)  # ход бота
-        field[motion] = symbol_1  # изменение списка в соответсвоо с ходом бота
-        update.message.reply_text(f'Бот сделал ход {symbol_1}')
-        update.message.reply_text(field_play(update, field, _))  # вывод измененного поля в чат
+    update.message.reply_text(functions.field_play(field), reply_markup=functions.keyboard())
+    # ход игрока
+    functions.keyboard()
+    update.message.reply_text(f'{user.first_name}, твой ход {chr(10060)}')  # вывод сообщения в чат
+    motion = int(update.message.text)  # принимаем данные от игрока
+    # если по данным ввода поле занято, просим ввести новые данные, до тех пор пока не будет введены данные свободной позиции
+    while field[motion - 1] == chr(10060) or field[motion - 1] == chr(11093):
+        update.message.reply_text(f'Поле занято повторите ввод!')
+        motion = int(update.message.text)  # принимаем данные от игрока
+    else: 
+        field[motion - 1] = chr(10060)  # как только введены правельные данные записываем символ
+        update.message.reply_text(functions.field_play(field))  # вывод поля в чат
+    # проверка условия выйгрышей
+    if functions.check_win == chr(10060):
+        update.message.reply_text(f'Урааааа!!! {chr(10060)} выйграли!!!!', reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
+    elif functions.check_win == 9:
+        update.message.reply_text('Игра окончена! Ничья!', reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
+    return GAME_O
 
-    elif functions_game.one_motion() == 'player':  # если при жеребьевке первый ходит игрок
-        update.message.reply_text(emoji.emojize(f'{user.first_name} первый ход :cross_mark: твой'))
-        update.message.reply_text(field_play(update, field, _))  # вывод поля в чат
-        symbol_1 = chr(11093)  # присвоение символа o
-        symbol_2 = chr(10060)  # присвоение символа x
-    keyboard = [['1', '2', '3'],
-                ['4', '5', '6'],
-                ['7', '8', '9']]  # список кнопок
-    markup_key = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True)
+def game_o(update, _):
+    global field
+    # ход бота
+    motion_b = functions.bot_motion(field)  # ход бота
+    field[motion_b] = chr(11093)  # изменение списка в соответсвоо с ходом бота
+    update.message.reply_text(f'Бот сделал ход {chr(11093)} на позицию {motion_b + 1}')  # оповещение в чат
+    update.message.reply_text(functions.field_play(field))  # вывод измененного поля в чат
+    # проверка условия выйгрышей
+    if functions.check_win == chr(11093):
+        update.message.reply_text(f'Урааааа!!! {chr(11093)} выйграли!!!!', reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
 
-    # условие продолжения игры
-    while functions_game.check_win(field) != 1 or functions_game.check_win(field) != 2 or functions_game.check_win(
-            field) != 3:
-
-        # ход игрока
-        update.message.reply_text(f'{user.first_name}, твой ход {symbol_2}',
-                                  reply_markup=markup_key)  # вывод сообщения в чат
-        motion = update.message.text  # принимаем данные от игрока
-        # если по данным ввода поле занято, просим ввести новые данные, до тех пор пока не будет введены данные свободной позиции
-        while field[int(motion) - 1] not in [chr(11093), chr(10060)]:
-            update.message.reply_text(f'Поле занято повторите ввод!', reply_markup=markup_key)
-            motion = update.message.text  # принимаем данные от игрока
-        field[int(motion) - 1] = symbol_2  # как только введены правельные данные записываем символ
-        update.message.reply_text(f'{user.first_name} ход {symbol_2} выполнен')
-        update.message.reply_text(field_play(update, field, _))  # вывод поля в чат
-
-        # ход бота
-        motion = functions_game.bot_motion(field)  # ход бота
-        field[motion] = symbol_1  # изменение списка в соответсвоо с ходом бота
-        update.message.reply_text(f'Бот сделал ход {symbol_1}')  # оповещение в чат
-        update.message.reply_text(field_play(update, field, _))  # вывод измененного поля в чат
-
-    # условия выйгрышей
-    else:
-        if functions_game.check_win(field) == 1:
-            update.message.reply_text(f'Урааааа!!! {chr(10060)} выйграли!!!!', reply_markup=ReplyKeyboardRemove())
-        elif functions_game.check_win(field) == 2:
-            update.message.reply_text(f'Урааааа!!! {chr(11093)} выйграли!!!!', reply_markup=ReplyKeyboardRemove())
-        elif functions_game.check_win(field) == 3:
-            update.message.reply_text(f'Игра окончена! Ничья!', reply_markup=ReplyKeyboardRemove())
-
-    return GAME
+    return GAME_X
 
 
 # Обрабатываем команду /cancel если пользователь отменил разговор
 def cancel(update, _):
-    user = update.message.from_user
-
     update.message.reply_text(emoji.emojize(f'Довстречи :waving_hand:\nБудет скучно - пиши.'),
-                              reply_markup=ReplyKeyboardRemove())  # Отвечаем на отказ поговорить
-
+                                  reply_markup=ReplyKeyboardRemove()
+        )
     return ConversationHandler.END
+        
 
 
 if __name__ == '__main__':
@@ -117,9 +90,10 @@ if __name__ == '__main__':
         entry_points=[CommandHandler('start', start)],  # точка входа в разговор
 
         states={  # этапы разговора, каждый со своим списком обработчиков сообщений
-            GAME: [MessageHandler(Filters.text, game)],
-            # CHOICE: [MessageHandler(Filters.text, choice)]
+            GAME_X: [MessageHandler(Filters.text, game_x)],
+            GAME_O: [MessageHandler(Filters.text, game_o)]
         },
+
         # точка выхода из разговора
         fallbacks=[CommandHandler('cancel', cancel)],
     )
@@ -130,3 +104,5 @@ if __name__ == '__main__':
     # Запуск бота
     updater.start_polling()
     updater.idle()
+
+
